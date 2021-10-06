@@ -4,18 +4,31 @@
  *
  * TODO - Replace this content of this view to suite the needs of your application.
  */
-Ext.define('appTesting.view.main.MainController', {
-    extend: 'Ext.app.ViewController',
+Ext.define("appTesting.view.main.MainController", {
+  extend: "Ext.app.ViewController",
 
-    alias: 'controller.main',
+  alias: "controller.main",
 
-    onItemSelected: function (sender, record) {
-        Ext.Msg.confirm('Confirm', 'Are you sure?', 'onConfirm', this);
-    },
+  onItemSelected: function (sender, record) {
+    Ext.Msg.confirm("Confirm", "Are you sure?", "onConfirm", this);
+  },
 
-    onConfirm: function (choice) {
-        if (choice === 'yes') {
-            //
-        }
+  onConfirm: function (choice) {
+    if (choice === "yes") {
+      //
     }
+  },
+
+  onLogoutClick: function () {
+    // Remove the localStorage key/value
+    localStorage.removeItem("LoggedIn");
+
+    // Remove Main View
+    this.getView().destroy();
+
+    // Add the Login Window
+    Ext.create({
+      xtype: "login",
+    });
+  },
 });
