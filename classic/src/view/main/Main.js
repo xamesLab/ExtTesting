@@ -1,10 +1,3 @@
-/**
- * This class is the main view for the application. It is specified in app.js as the
- * "mainView" property. That setting automatically applies the "viewport"
- * plugin causing this view to become the body element (i.e., the viewport).
- *
- * TODO - Replace this content of this view to suite the needs of your application.
- */
 Ext.define("appTesting.view.main.Main", {
   extend: "Ext.tab.Panel",
   xtype: "app-main",
@@ -18,6 +11,7 @@ Ext.define("appTesting.view.main.Main", {
     "appTesting.view.main.MainController",
     "appTesting.view.main.MainModel",
     "appTesting.view.main.List",
+    "appTesting.view.main.Tab",
   ],
 
   controller: "main",
@@ -35,11 +29,22 @@ Ext.define("appTesting.view.main.Main", {
     },
     title: {
       bind: {
-        text: "{name}",
+        text: "Учет товаров",
       },
       flex: 0,
     },
-    iconCls: "fa-th-list",
+
+    items: [
+      {
+        xtype: "button",
+        text: "Выход",
+        padding: "3px",
+        margin: "2px 5px 2px 2px",
+        listeners: {
+          click: "onLogoutClick",
+        },
+      },
+    ],
   },
 
   tabBar: {
@@ -50,73 +55,43 @@ Ext.define("appTesting.view.main.Main", {
     },
   },
 
-  responsiveConfig: {
-    tall: {
-      headerPosition: "top",
-    },
-    wide: {
-      headerPosition: "left",
-    },
-  },
-
-  defaults: {
-    bodyPadding: 20,
-    tabConfig: {
-      responsiveConfig: {
-        wide: {
-          iconAlign: "left",
-          textAlign: "left",
-        },
-        tall: {
-          iconAlign: "top",
-          textAlign: "center",
-          width: 120,
-        },
-      },
-    },
-  },
-
   items: [
     {
-      title: "Home",
-      iconCls: "fa-home",
-      // The following grid shares a store with the classic version's grid as well!
-      items: [
-        {
-          xtype: "mainlist",
-        },
-      ],
-    },
-    {
-      title: "Users",
-      iconCls: "fa-user",
-      bind: {
-        html: "{loremIpsum}",
-      },
-    },
-    {
-      title: "Groups",
-      iconCls: "fa-users",
-      bind: {
-        html: "{loremIpsum}",
-      },
-    },
-    {
-      title: "Settings",
-      iconCls: "fa-cog",
-      bind: {
-        html: "{loremIpsum}",
-      },
+      xtype: "mainTab",
     },
   ],
 
-  buttons: [
-    {
-      text: "Logout",
-      formBind: true,
-      listeners: {
-        click: "onLogoutClick",
-      },
-    },
-  ],
+  // items: [
+  //   {
+  //     title: "Home",
+  //     iconCls: "fa-home",
+  //     // The following grid shares a store with the classic version's grid as well!
+  //     items: [
+  //       {
+  //         xtype: "mainlist",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     title: "Users",
+  //     iconCls: "fa-user",
+  //     bind: {
+  //       html: "{loremIpsum}",
+  //     },
+  //   },
+  //   {
+  //     title: "Groups",
+  //     iconCls: "fa-users",
+  //     bind: {
+  //       html: "{loremIpsum}",
+  //     },
+  //   },
+  //   {
+  //     title: "Settings",
+  //     iconCls: "fa-cog",
+  //     bind: {
+  //       html: "{loremIpsum}",
+  //     },
+  //   },
+  // ],
 });
