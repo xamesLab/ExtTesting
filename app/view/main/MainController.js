@@ -1,9 +1,3 @@
-/**
- * This class is the controller for the main view for the application. It is specified as
- * the "controller" of the Main view class.
- *
- * TODO - Replace this content of this view to suite the needs of your application.
- */
 Ext.define("appTesting.view.main.MainController", {
   extend: "Ext.app.ViewController",
 
@@ -17,6 +11,15 @@ Ext.define("appTesting.view.main.MainController", {
     if (choice === "yes") {
       //
     }
+  },
+
+  addTab: function () {
+    var tabs = this.lookupReference("mT");
+    var tab = tabs.add({
+      title: "Товары",
+      xtype: "content",
+    });
+    tabs.setActiveTab(tab);
   },
 
   onLogoutClick: function () {

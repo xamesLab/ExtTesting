@@ -8,7 +8,7 @@ Ext.define("appTesting.view.main.Tab", {
 
     "appTesting.view.main.MainController",
     "appTesting.view.main.MainModel",
-    "appTesting.view.main.List",
+    "appTesting.view.main.Grid",
   ],
 
   controller: "main",
@@ -26,16 +26,6 @@ Ext.define("appTesting.view.main.Tab", {
       overflowHandler: "none",
     },
   },
-
-  buttons: [
-    {
-      text: "Logout",
-      formBind: true,
-      listeners: {
-        click: "onLogoutClick",
-      },
-    },
-  ],
 
   items: [
     {
