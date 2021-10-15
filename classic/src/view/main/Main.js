@@ -11,7 +11,6 @@ Ext.define("appTesting.view.main.Main", {
     "appTesting.view.main.MainController",
     "appTesting.view.main.MainModel",
     "appTesting.view.main.Grid",
-    "appTesting.view.main.Tab",
   ],
 
   controller: "main",

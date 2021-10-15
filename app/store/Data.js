@@ -1,5 +1,6 @@
 Ext.define("appTesting.store.Data", {
   extend: "Ext.data.Store",
+  storeId: "mystore",
 
   alias: "store.data",
 
