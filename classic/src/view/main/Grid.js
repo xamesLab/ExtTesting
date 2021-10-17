@@ -20,15 +20,51 @@ var checkNumberVType = {
 // добавляем новые валидаторы
 Ext.apply(Ext.form.field.VTypes, checkNumberVType);
 
+// создаем общий store
+Ext.create("Ext.data.Store", {
+  storeId: "myStore",
+  fields: ["id", "name", "caption", "price", "value"],
+  data: {
+    items: [
+      {
+        id: "1",
+        name: "Notebook Lenovo",
+        caption: "Ноутбук ThinkPad 1460 14",
+        price: "100",
+        value: "2",
+      },
+      {
+        id: "2",
+        name: "Keyboard OKLICK",
+        caption: "Клавиатура OKLICK 140M",
+        price: "50",
+        value: "8",
+      },
+      {
+        id: "3",
+        name: "Network adapter",
+        caption: "Сетевой адаптер WIFI D-Link",
+        price: "7",
+        value: "0",
+      },
+    ],
+  },
+  proxy: {
+    type: "memory",
+    reader: {
+      type: "json",
+      rootProperty: "items",
+    },
+  },
+});
+
 Ext.define("appTesting.view.main.Grid", {
   extend: "Ext.grid.Panel",
   xtype: "mainlist",
 
-  requires: ["appTesting.store.Data"],
+  requires: ["appTesting.view.main.MainModel"],
 
-  store: {
-    type: "data",
-  },
+  store: "myStore",
 
   title: "Список товаров",
 
@@ -66,14 +102,7 @@ Ext.define("appTesting.view.main.Grid", {
     },
   ],
   listeners: {
-    afterrender: function () {
-      // var st = this.getStore("data");
-      // //st.getById("1")
-      // st.loadData([{ id: 1 }], true);
-      // console.log(st);
-    },
-
-    cellclick: function (grid, td, cellIndex, { data }, tr, rowIndex) {
+    cellclick: function (grid, td, cellIndex, { data }) {
       var oldPrice = data.price;
       var oldVal = data.value;
       var newPrice = oldPrice;
@@ -115,6 +144,9 @@ Ext.define("appTesting.view.main.Grid", {
                   } else {
                     this.up("form").down("button").setDisabled(true);
                   }
+                  if (!this.up("form").isValid()) {
+                    this.up("form").down("button").setDisabled(true);
+                  }
                 },
               },
             },
@@ -135,6 +167,9 @@ Ext.define("appTesting.view.main.Grid", {
                   } else {
                     this.up("form").down("button").setDisabled(true);
                   }
+                  if (!this.up("form").isValid()) {
+                    this.up("form").down("button").setDisabled(true);
+                  }
                 },
               },
             },
@@ -147,20 +182,22 @@ Ext.define("appTesting.view.main.Grid", {
                 text: "Сохранить",
                 disabled: true,
                 handler: function () {
-                  var mystore = Ext.getStore("mystore");
-                  mystore.loadData(
-                    [
-                      {
-                        id: data.id,
-                        name: data.name,
-                        caption: data.caption,
-                        price: newPrice,
-                        value: newVal,
-                      },
-                    ],
-                    true
-                  );
-                  this.up("window").destroy();
+                  if (this.up("form").isValid()) {
+                    var mystore = Ext.getStore("myStore");
+                    mystore.loadData(
+                      [
+                        {
+                          id: data.id,
+                          name: data.name,
+                          caption: data.caption,
+                          price: newPrice,
+                          value: newVal,
+                        },
+                      ],
+                      true
+                    );
+                    this.up("window").destroy();
+                  }
                 },
               },
               {
@@ -178,11 +215,7 @@ Ext.define("appTesting.view.main.Grid", {
           title: `Карточка товара: ${data.name}`,
           layout: "fit",
 
-          requires: ["appTesting.store.Data"],
-
-          store: {
-            type: "data",
-          },
+          reference: "card",
 
           items: [form],
         }).show();

@@ -14,8 +14,12 @@ Ext.define("appTesting.view.main.MainController", {
 
   onLogoutClick: function () {
     localStorage.removeItem("LoggedIn");
+    var card = this.lookupReference("card");
 
     this.getView().destroy();
+    if (card) {
+      card.destroy();
+    }
 
     Ext.create({
       xtype: "login",
