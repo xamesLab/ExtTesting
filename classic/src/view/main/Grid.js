@@ -62,11 +62,39 @@ Ext.define("appTesting.view.main.Grid", {
   extend: "Ext.grid.Panel",
   xtype: "mainlist",
 
-  requires: ["appTesting.view.main.MainModel"],
+  requires: [
+    "appTesting.view.main.GridController",
+    "appTesting.view.main.MainModel",
+  ],
 
   store: "myStore",
+  controller: "grid",
 
   title: "Список товаров",
+
+  tbar: [
+    {
+      xtype: "form",
+      items: [
+        {
+          xtype: "textfield",
+          name: "id",
+          fieldLabel: "ID",
+          listeners: {
+            specialkey: "filtredById",
+          },
+        },
+        {
+          xtype: "textfield",
+          name: "caption",
+          fieldLabel: "Описание",
+          listeners: {
+            specialkey: "filtredByString",
+          },
+        },
+      ],
+    },
+  ],
 
   columns: [
     {
@@ -183,6 +211,11 @@ Ext.define("appTesting.view.main.Grid", {
                 disabled: true,
                 handler: function () {
                   if (this.up("form").isValid()) {
+                    Ext.Msg.alert(
+                      "Сохранение",
+                      "Данные сохранены",
+                      Ext.emptyFn
+                    );
                     var mystore = Ext.getStore("myStore");
                     mystore.loadData(
                       [

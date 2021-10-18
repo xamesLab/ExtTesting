@@ -1,4 +1,4 @@
-Ext.define("TutorialApp.view.login.LoginController", {
+Ext.define("appTesting.view.login.LoginController", {
   extend: "Ext.app.ViewController",
   alias: "controller.login",
 
@@ -16,7 +16,7 @@ Ext.define("TutorialApp.view.login.LoginController", {
         xtype: "app-main",
       });
     } else {
-      alert("Неправильный логин/пароль");
+      Ext.Msg.alert("Ошибка", "Неправильный логин/пароль", Ext.emptyFn);
 
       login.setValue("");
       pass.setValue("");
